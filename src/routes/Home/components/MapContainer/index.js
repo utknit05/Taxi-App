@@ -2,6 +2,8 @@ import React from 'react';
 import { View } from 'native-base';
 import MapView from 'react-native-maps';
 import styles from './MapContainerStyles';
+import SearchBox from '../SearchBox';
+import SearchResults from '../SearchResults';
 
 const MapContainer = ({ region }) => {
     return (
@@ -16,6 +18,8 @@ const MapContainer = ({ region }) => {
                     pinColor='blue'
                 />
             </MapView>
+            <SearchBox/>
+            <SearchResults />
         </View>
     );
 };

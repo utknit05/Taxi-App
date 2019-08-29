@@ -1,1 +1,2 @@
 export const GET_CURRENT_LOCATION = 'GET_CURRENT_LOCATION';
+export const GET_INPUT = 'GET_INPUT';

@@ -1,6 +1,6 @@
 
 // CONSTANTS
-import { GET_CURRENT_LOCATION } from './constants';
+import { GET_CURRENT_LOCATION, GET_INPUT } from './constants';
 import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
@@ -26,6 +26,11 @@ export const getCurrentLocation = (position) => {
     }
 }
 
+export const getInputData = (payload) => ({
+    type: GET_INPUT,
+    payload,
+})
+
 
 
 // REDUCERS
@@ -33,6 +38,10 @@ export const HomeReducer = (state = {}, action) => {
     switch (action.type) {
         case GET_CURRENT_LOCATION:
             return { ...state, region: action.payload };
+
+        case GET_INPUT:
+            const { key, val } = action.payload;
+            return { ...state, inputData: { ...state.inputData, [key]: val } }
 
         default:
             return state;
