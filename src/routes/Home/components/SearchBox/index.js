@@ -9,7 +9,7 @@ import styles from './SearchBoxStyles';
 
 const mapStateToProps = state => {
     return {
-
+        selectedAddress: state.HomeReducer.selectedAddress,
     }
 }
 
@@ -34,7 +34,10 @@ class SearchBox extends React.Component {
     }
 
     render() {
-        const { getInputData, toggleSearchResults } = this.props;
+        const { getInputData, toggleSearchResults, selectedAddress } = this.props;
+        const { pickUp, dropOff } = selectedAddress || {};
+        const pickUpPlaceHolder = pickUp ? pickUp.address : 'Choose pick-up locations';
+        const dropOffPlaceHolder = dropOff ? dropOff.address : 'Choose drop-off location';
         return (
             <View style={styles.searchBox}>
                 <View style={styles.inputWrapper}>
@@ -43,7 +46,7 @@ class SearchBox extends React.Component {
                         <Icon name='search' size={20} color='black'/>
                         <Input
                             style={styles.inputSearch}
-                            placeholder='Choose pick-up location'
+                            placeholder={pickUpPlaceHolder}
                             onChangeText={
                                 (val) => {
                                     getInputData('pickUp',val);
@@ -60,7 +63,7 @@ class SearchBox extends React.Component {
                         <Icon name='search' size={20} color='black'/>
                         <Input
                             style={styles.inputSearch}
-                            placeholder='Choose drop-off location'
+                            placeholder={dropOffPlaceHolder}
                             onChangeText={
                                 (val) => {
                                     getInputData('dropOff',val)

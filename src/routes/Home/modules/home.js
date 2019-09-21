@@ -1,6 +1,6 @@
 
 // CONSTANTS
-import { GET_CURRENT_LOCATION, GET_INPUT, TOGGLE_SEARCH_RESULTS, GET_ADDRESS_PREDICTIONS } from './constants';
+import { GET_CURRENT_LOCATION, GET_INPUT, TOGGLE_SEARCH_RESULTS, GET_ADDRESS_PREDICTIONS, GET_SELECTED_ADDRESS, GET_DISTANCE_MATRIX } from './constants';
 import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
@@ -41,6 +41,16 @@ export const getAddressPredictions = payload => ({
     payload,
 })
 
+export const getSelectedAddress = payload => ({
+    type: GET_SELECTED_ADDRESS,
+    payload,
+})
+
+export const getDistanceMatrix = payload => ({
+    type: GET_DISTANCE_MATRIX,
+    payload,
+})
+
 // REDUCERS
 export const HomeReducer = (state = {}, action) => {
     switch (action.type) {
@@ -52,10 +62,16 @@ export const HomeReducer = (state = {}, action) => {
             return { ...state, inputData: { ...state.inputData, [key]: val } }
 
         case TOGGLE_SEARCH_RESULTS:
-            return { ...state, resultsType: action.payload, predictions: [] } // try to modify predictions properly
+            return { ...state, resultsType: action.payload, predictions: [] } // Modify predictions properly
 
         case GET_ADDRESS_PREDICTIONS:
             return { ...state, predictions: action.payload }
+
+        case GET_SELECTED_ADDRESS:
+            return { ...state, selectedAddress: { ...state.selectedAddress, [action.payload.key]: action.payload.val }, resultsType: undefined }
+
+        case GET_DISTANCE_MATRIX:
+            return { ...state, distanceMatrix: action.payload }
 
         default:
             return state;
